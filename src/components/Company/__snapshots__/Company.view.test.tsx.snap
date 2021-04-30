@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Company should render component correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="css-tkduzr"
+  >
+    <div
+      class="top_content"
+    >
+      <h2>
+        Mock Title
+      </h2>
+      <div
+        class="css-yhk98z"
+      >
+        <div
+          class="selected_range"
+        >
+          <div
+            class="day"
+          >
+            Monday
+          </div>
+          <div>
+            11:30 - 13:00
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="time_range_content"
+    >
+      Mock Content
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Company should render component correctly without selected time range 1`] = `
+<DocumentFragment>
+  <div
+    class="css-tkduzr"
+  >
+    <div
+      class="top_content"
+    >
+      <h2>
+        Mock Title
+      </h2>
+      <div
+        class="css-yhk98z"
+      >
+        <div>
+          nothing selected yet
+        </div>
+      </div>
+    </div>
+    <div
+      class="time_range_content"
+    >
+      Mock Content
+    </div>
+  </div>
+</DocumentFragment>
+`;
