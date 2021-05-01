@@ -1,14 +1,16 @@
-import * as AroundHomeFont from "@root/assets/fonts/aroundhome.woff2";
+import React from "react";
 
 import { css, injectGlobal } from "@emotion/css";
-
-import HashLoader from "react-spinners/HashLoader";
-import React from "react";
-import TimeSlotOverview from "./pages/TimeSlotOverview/TimeSlotOverview.container";
-import { colors } from "./config/colors";
-import { getTimeSlots } from "./api/timeSlots/getTimeSlots";
 import useLocalStorage from "react-use-localstorage";
 import usePromise from "react-use-promise";
+
+import * as AroundHomeFont from "@root/assets/fonts/aroundhome.woff2";
+
+import { colors } from "./config/colors";
+import { getTimeSlots } from "./api/timeSlots/getTimeSlots";
+
+import HashLoader from "react-spinners/HashLoader";
+import TimeSlotOverview from "./pages/TimeSlotOverview/TimeSlotOverview.container";
 
 function App() {
   const [
@@ -16,6 +18,11 @@ function App() {
     timeRangeDataError,
     timeRangeDataLoadingState,
   ] = usePromise(() => getTimeSlots(), []);
+
+  const [, , fakeLoadingState] = usePromise(
+    new Promise((res) => setTimeout(res, 1000)),
+    []
+  );
 
   const [selections] = useLocalStorage("selections", "[]");
 
@@ -43,13 +50,15 @@ function App() {
 
   return (
     <div className={styles}>
-      {timeRangeDataLoadingState === "resolved" ? (
+      {timeRangeDataLoadingState === "resolved" &&
+      fakeLoadingState === "resolved" ? (
         <TimeSlotOverview
           timeSlotData={timeRangeData?.data}
           selectedTimeSlots={JSON.parse(selections)}
         />
-      ) : timeRangeDataLoadingState === "pending" ? (
-        <HashLoader color="red" />
+      ) : timeRangeDataLoadingState === "pending" ||
+        fakeLoadingState === "pending" ? (
+        <HashLoader color={colors.aroundHomeYellow} />
       ) : timeRangeDataError ? (
         <div className={errorStyles}>Could not fetch data</div>
       ) : null}

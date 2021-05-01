@@ -1,7 +1,9 @@
+import React from "react";
+
 import { css, cx } from "@emotion/css";
 
-import React from "react";
 import { TimeSlotSelectionsType } from "@root/pages/TimeSlotOverview/TimeSlotOverview.types";
+
 import { isoDateFormater } from "@root/helper/isoDateFormater";
 
 export interface ISelectedTimeRangeViewProps {

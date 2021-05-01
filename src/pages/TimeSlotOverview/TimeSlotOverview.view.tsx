@@ -1,12 +1,14 @@
+import React from "react";
+
+import { css, cx } from "@emotion/css";
+
 import {
   TimeSlotDataTypeExtended,
   TimeSlotSelectionsType,
 } from "./TimeSlotOverview.types";
-import { css, cx } from "@emotion/css";
 
 import Appointments from "@root/components/Appointments/Appointments.view";
 import Company from "@root/components/Company/Company.view";
-import React from "react";
 import TimeRangeOptionsContainer from "@root/components/TimeRangeOptionsContainer/TimeRangeOption.container";
 
 export interface ITimeSlotOverviewViewProps {

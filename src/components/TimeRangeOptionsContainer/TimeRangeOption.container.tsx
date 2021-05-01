@@ -1,13 +1,16 @@
+import React from "react";
+
+import { css, cx } from "@emotion/css";
+import { map as _map } from "lodash-es";
+
 import {
   TimeSlotDataTypeExtended,
   TimeSlotSelectionsType,
 } from "@root/pages/TimeSlotOverview/TimeSlotOverview.types";
-import { css, cx } from "@emotion/css";
 
-import React from "react";
-import TimeRangeOptionView from "../TimeRangeOption/TimeRangeOption.view";
-import { map as _map } from "lodash-es";
 import { colors } from "@root/config/colors";
+
+import TimeRangeOptionView from "../TimeRangeOption/TimeRangeOption.view";
 
 export interface ITimeRangeOptionsContainerProps {
   className?: string;

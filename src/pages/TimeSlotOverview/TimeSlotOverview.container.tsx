@@ -1,15 +1,18 @@
 import React, { useMemo, useState } from "react";
+
+import { DateTime } from "luxon";
+import { groupBy as _groupBy } from "lodash-es";
+import useLocalStorage from "react-use-localstorage";
+
 import {
   TimeSlotDataType,
   TimeSlotDataTypeExtended,
   TimeSlotSelectionsType,
 } from "./TimeSlotOverview.types";
 
-import { DateTime } from "luxon";
-import TimeSlotOverviewView from "./TimeSlotOverview.view";
-import { groupBy as _groupBy } from "lodash-es";
 import { isoDateFormater } from "@root/helper/isoDateFormater";
-import useLocalStorage from "react-use-localstorage";
+
+import TimeSlotOverviewView from "./TimeSlotOverview.view";
 
 export interface ITimeSlotOverviewProps {
   timeSlotData: TimeSlotDataType[];

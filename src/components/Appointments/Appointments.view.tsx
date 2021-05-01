@@ -1,11 +1,13 @@
+import React from "react";
+
+import { css, cx } from "@emotion/css";
+import { sortBy as _sortBy } from "lodash-es";
+
 import {
   TimeSlotDataTypeExtended,
   TimeSlotSelectionsType,
 } from "@root/pages/TimeSlotOverview/TimeSlotOverview.types";
-import { css, cx } from "@emotion/css";
 
-import React from "react";
-import { sortBy as _sortBy } from "lodash-es";
 import { colors } from "@root/config/colors";
 import { isoDateFormater } from "@root/helper/isoDateFormater";
 

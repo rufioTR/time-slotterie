@@ -1,9 +1,12 @@
+import React from "react";
+
 import { css, cx } from "@emotion/css";
 
-import React from "react";
-import SelectedTimeRangeContainer from "../SelectedTimeRange/SelectedTimeRange.container";
 import { TimeSlotSelectionsType } from "@root/pages/TimeSlotOverview/TimeSlotOverview.types";
+
 import { colors } from "@root/config/colors";
+
+import SelectedTimeRangeContainer from "../SelectedTimeRange/SelectedTimeRange.container";
 
 export interface ICompanyProps {
   className?: string;

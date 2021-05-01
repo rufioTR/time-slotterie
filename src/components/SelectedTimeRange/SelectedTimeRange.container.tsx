@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 
-import SelectedTimeRangeView from "./SelectedTimeRange.view";
 import { TimeSlotSelectionsType } from "@root/pages/TimeSlotOverview/TimeSlotOverview.types";
+
+import SelectedTimeRangeView from "./SelectedTimeRange.view";
 
 export interface ISelectedTimeRangeContainerProps {
   className?: string;
