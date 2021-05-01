@@ -11,6 +11,7 @@ import { getTimeSlots } from "./api/timeSlots/getTimeSlots";
 
 import HashLoader from "react-spinners/HashLoader";
 import TimeSlotOverview from "./pages/TimeSlotOverview/TimeSlotOverview.container";
+import { useTransition, animated as a } from "react-spring";
 
 function App() {
   const [
@@ -20,11 +21,21 @@ function App() {
   ] = usePromise(() => getTimeSlots(), []);
 
   const [, , fakeLoadingState] = usePromise(
-    new Promise((res) => setTimeout(res, 1000)),
+    new Promise((res) => setTimeout(res, 300)),
     []
   );
 
   const [selections] = useLocalStorage("selections", "[]");
+
+  const loadingTransition = useTransition(
+    fakeLoadingState === "pending" || timeRangeDataLoadingState === "pending",
+    {
+      initial: { position: "absolute", opacity: 1 },
+      from: { opacity: 0 },
+      enter: { opacity: 1 },
+      leave: { opacity: 0 },
+    }
+  );
 
   injectGlobal`
     @font-face {
@@ -52,13 +63,35 @@ function App() {
     <div className={styles}>
       {timeRangeDataLoadingState === "resolved" &&
       fakeLoadingState === "resolved" ? (
-        <TimeSlotOverview
-          timeSlotData={timeRangeData?.data}
-          selectedTimeSlots={JSON.parse(selections)}
-        />
+        <>
+          {loadingTransition(({ opacity }, loading) => (
+            <a.div
+              style={{
+                opacity,
+              }}
+            >
+              {!loading && (
+                <TimeSlotOverview
+                  timeSlotData={timeRangeData?.data}
+                  selectedTimeSlots={JSON.parse(selections)}
+                />
+              )}
+            </a.div>
+          ))}
+        </>
       ) : timeRangeDataLoadingState === "pending" ||
         fakeLoadingState === "pending" ? (
-        <HashLoader color={colors.aroundHomeYellow} />
+        <>
+          {loadingTransition(({ opacity }, loading) => (
+            <a.div
+              style={{
+                opacity,
+              }}
+            >
+              {loading && <HashLoader color={colors.aroundHomeYellow} />}
+            </a.div>
+          ))}
+        </>
       ) : timeRangeDataError ? (
         <div className={errorStyles}>Could not fetch data</div>
       ) : null}

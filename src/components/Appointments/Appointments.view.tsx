@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { css, cx } from "@emotion/css";
 import { sortBy as _sortBy } from "lodash-es";
+import { useTransition, animated as a } from "react-spring";
 
 import {
   TimeSlotDataTypeExtended,
@@ -22,6 +23,24 @@ const Appointments: React.FC<IAppointmentsProps> = ({
   selections,
   companyData,
 }) => {
+  const sortedSelectionList = useMemo(
+    () =>
+      _sortBy(selections, (selection) =>
+        isoDateFormater(selection.startTime, "X")
+      ),
+    [selections]
+  );
+
+  const selectionListTransition = useTransition(sortedSelectionList, {
+    initial: {
+      height: "52px",
+      opacity: 1,
+    },
+    from: { height: "0px", opacity: 0 },
+    enter: { height: "52px", opacity: 1 },
+    leave: { height: "0px", opacity: 0 },
+  });
+
   const getCompanyName = (id: number) => {
     const foundCompany = companyData.find((timeSlot) => timeSlot.id === id);
 
@@ -40,10 +59,10 @@ const Appointments: React.FC<IAppointmentsProps> = ({
     }
 
     .selected-company {
-      margin-bottom: 8px;
+      margin-bottom: 0px;
 
       h3 {
-        margin: 4px 0;
+        margin: 0px 0 0px 0;
       }
     }
   `;
@@ -51,17 +70,14 @@ const Appointments: React.FC<IAppointmentsProps> = ({
   return (
     <div className={cx(styles, className)}>
       <h2>Appointments</h2>
-      {/* sort by timestamp then list */}
-      {_sortBy(selections, (selection) =>
-        isoDateFormater(selection.startTime, "X")
-      ).map((selection) => (
-        <div key={selection.companyId} className="selected-company">
-          <h3>{getCompanyName(selection.companyId)}</h3>
+      {selectionListTransition((styles, item) => (
+        <a.div style={styles} className="selected-company">
+          <h3>{getCompanyName(item.companyId)}</h3>
           <div>
-            {isoDateFormater(selection.startTime, "ccc: HH:mm")} -{" "}
-            {isoDateFormater(selection.endTime, "HH:mm")}
+            {isoDateFormater(item.startTime, "ccc: HH:mm")} -{" "}
+            {isoDateFormater(item.endTime, "HH:mm")}
           </div>
-        </div>
+        </a.div>
       ))}
     </div>
   );
